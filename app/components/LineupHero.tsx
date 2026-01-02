@@ -2,7 +2,7 @@ export default function LineupHero() {
     return (
       <div className="relative bg-[#0f1419] text-white">
         {/* Hero Content */}
-        <div className="max-w-7xl mx-auto px-6 pt-20 pb-16">
+        <div className="max-w-7xl mx-auto px-6 pt-5 pb-16">
           <div className="text-center mb-6">
             <h1 className="text-6xl md:text-7xl font-bold mb-4">
               LINEUP{' '}
@@ -18,7 +18,7 @@ export default function LineupHero() {
           </div>
   
           {/* Stats Section */}
-          <div className="flex flex-wrap justify-center gap-12 md:gap-20 mt-12 mb-16">
+          <div className="flex flex-wrap justify-center gap-12 md:gap-20 mt-6 mb-16">
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-1">
                 100+
