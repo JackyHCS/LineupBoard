@@ -6,7 +6,7 @@ export default function LineupHeader() {
             {/* Logo */}
             <div className="flex items-center">
               <a href="/" className="flex items-center">
-                <img src="/assets/logo.JPG" alt="LineupBoard Logo" className="h-20 w-auto" />
+                <img src="/assets/logo-transparent.png" alt="LineupBoard Logo" className="h-20 w-auto" />
               </a>
             </div>
   
