@@ -1,6 +1,6 @@
-export default function Header() {
+export default function LineupHeader() {
     return (
-      <header className="bg-[#0f1419] border-b border-gray-800">
+      <header className="bg-[#0f1419] ">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
