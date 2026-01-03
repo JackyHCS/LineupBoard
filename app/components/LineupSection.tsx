@@ -5,7 +5,7 @@ import {nades, maps} from '../data/nades';
 import LineupNadeCard from './LineupNadeCard';
 import {nadeTypes} from '../constants/nadeTypes';
 
-export default function LineupFilter() {
+export default function LineupSection() {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedType, setSelectedType] = useState('All Types');
     const [selectedMap, setSelectedMap] = useState('All Maps');
