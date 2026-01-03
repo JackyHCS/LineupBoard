@@ -31,4 +31,3 @@ export const nades: Nade[] = [
 ]
 
 export const maps = ['MIRAGE', 'INFERNO', 'DUST2', 'NUKE', 'ANCIENT', 'TRAIN', 'VERTIGO', 'OVERPASS'];
-

@@ -1,15 +1,9 @@
 "use client"
 import {useState } from 'react';
-import {Search, Cloud, Flame, Circle, Zap} from 'lucide-react';
+import {Search} from 'lucide-react';
 import {nades, maps} from '../data/nades';
 import LineupNadeCard from './LineupNadeCard';
-
-const nadeTypes = [
-  { name: 'SMOKE', icon: Cloud },
-  { name: 'MOLOTOV', icon: Flame },
-  { name: 'GRENADE', icon: Circle },
-  { name: 'FLASHBANG', icon: Zap }
-];
+import {nadeTypes} from '../constants/nadeTypes';
 
 export default function LineupFilter() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -25,7 +19,7 @@ export default function LineupFilter() {
               Browse through our collection of utility lineups. Filter by map, type, and side.
             </p>
           </div>
-          
+
           {/* Search and Filters */}
           <div className="flex flex-col lg:flex-row gap-4 mb-8">
             <div className="flex-1 relative">
