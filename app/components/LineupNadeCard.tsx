@@ -17,10 +17,10 @@ export default function LineupNadeCard({ nade }: LineupNadeCardProps) {
               <span className="px-2 py-1 bg-blue-500 text-white text-xs font-medium rounded">
                 {nade.type}
               </span>
-              <span className="px-2 py-1 bg-yellow-500 text-black text-xs font-medium rounded">
+              <span className="px-2 py-1 bg-yellow-00 text-black text-xs font-medium rounded">
                 {nade.difficulty}
               </span>
-            </div>
+            </div>5
           </div>
           <div className="p-4">
             <h3 className="font-semibold text-white mb-2 line-clamp-2">
