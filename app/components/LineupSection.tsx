@@ -12,9 +12,9 @@ export default function LineupSection() {
     const [selectedSide, setSelectedSide] = useState('All Sides');
   
     return (
-      <section id="lineups" className="bg-[#0f1419] py-16">
+      <section id="lineups" className="bg-[#0f1419]">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-12">
+          <div className="mb-6">
             <p className="text-gray-400">
               Browse through our collection of utility lineups. Filter by map, type, and side.
             </p>

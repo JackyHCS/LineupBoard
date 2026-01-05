@@ -18,7 +18,7 @@ export default function LineupHero() {
           </div>
   
           {/* Stats Section */}
-          <div className="flex flex-wrap justify-center gap-12 md:gap-20 mt-6 mb-16">
+          <div className="flex flex-wrap justify-center gap-12 md:gap-20 mt-6 mb-4">
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-1">
                 100+
