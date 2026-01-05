@@ -4,6 +4,9 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'LineupBoard',
   description: 'LineupBoard - Your lineup management platform',
+  icons: {
+    icon: '/assets/logo.JPG',
+  },
 }
 
 export default function RootLayout({
