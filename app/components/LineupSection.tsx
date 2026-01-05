@@ -24,7 +24,7 @@ export default function LineupSection() {
       
       // Type filter
       const matchesType = selectedType === 'All Types' || nade.type === selectedType;
-      
+
       // Map filter 
       const normalizedSelectedMap = selectedMap === 'All Maps' 
         ? 'All Maps' 
@@ -62,7 +62,7 @@ export default function LineupSection() {
             <select 
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="bg-[#1a2332] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 lg:min-w-[150px]"
+              className="bg-[#1a2332] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 lg:min-w-[150px] cursor-pointer"
             >
               <option>All Types</option>
               <option>Smoke</option>
@@ -73,7 +73,7 @@ export default function LineupSection() {
             <select 
               value={selectedMap}
               onChange={(e) => setSelectedMap(e.target.value)}
-              className="bg-[#1a2332] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 lg:min-w-[150px]"
+              className="bg-[#1a2332] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 lg:min-w-[150px] cursor-pointer"
             >
               <option>All Maps</option>
               {maps.map(map => <option key={map}>{map}</option>)}
@@ -81,7 +81,7 @@ export default function LineupSection() {
             <select 
               value={selectedSide}
               onChange={(e) => setSelectedSide(e.target.value)}
-              className="bg-[#1a2332] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 lg:min-w-[150px]"
+              className="bg-[#1a2332] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 lg:min-w-[150px] cursor-pointer"
             >
               <option>All Sides</option>
               <option>T-Side</option>
@@ -100,7 +100,7 @@ export default function LineupSection() {
                   <button
                     key={name}
                     onClick={() => setSelectedType(isSelected ? 'All Types' : typeName)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition ${
+                    className={`cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition ${
                       isSelected
                         ? 'bg-blue-500 text-white border border-blue-500'
                         : 'bg-[#1a2332] text-gray-300 border border-gray-700 hover:border-blue-500 hover:text-blue-400'
@@ -119,10 +119,10 @@ export default function LineupSection() {
                 <button 
                   key={map} 
                   onClick={() => setSelectedMap(selectedMap === map ? 'All Maps' : map)}
-                  className={`px-5 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition ${
+                  className={`cursor-pointer px-5 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition ${
                     selectedMap === map
                       ? 'bg-blue-500 text-white'
-                      : 'bg-[#1a2332] text-gray-300 hover:bg-[#243041]'
+                      : 'bg-[#1a2332] text-gray-300 border border-gray-700 hover:border-blue-500 hover:text-blue-400'
                   }`}
                 >
                   {map}
