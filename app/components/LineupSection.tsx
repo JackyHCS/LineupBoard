@@ -4,6 +4,8 @@ import {Search} from 'lucide-react';
 import {nades, maps} from '../data/nades';
 import LineupNadeCard from './LineupNadeCard';
 import {nadeTypes} from '../constants/nadeTypes';
+import LineupRadar from './LineupRadar';
+import {mapNadePositions} from '../data/nadePositions';
 
 export default function LineupSection() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -37,6 +39,11 @@ export default function LineupSection() {
       return matchesSearch && matchesType && matchesMap && matchesSide;
     });
   
+    // Get nade positions for the selected map
+    const nadePositionsForMap = selectedMap !== 'All Maps' 
+      ? (mapNadePositions[selectedMap] || [])
+      : [];
+
     return (
       <section id="lineups" className="bg-[#0f1419]">
         <div className="max-w-7xl mx-auto px-6">
@@ -62,7 +69,7 @@ export default function LineupSection() {
             <select 
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="bg-[#1a2332] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 lg:min-w-[150px] cursor-pointer"
+              className="bg-[#1a2332] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 lg:min-w-[150px] cursopointerr-"
             >
               <option>All Types</option>
               <option>Smoke</option>
@@ -131,12 +138,15 @@ export default function LineupSection() {
             </div>
           </div>
   
+          {/* Map Radar*/}
+          {selectedMap !== 'All Maps' && (
+            <LineupRadar mapName={selectedMap} nadePositions={nadePositionsForMap}/>
+          )}
   
           {/* Results Count */}
           <div className="text-lg font-bold text-gray-300 mb-6">
             {filteredNades.length} LINEUPS 
           </div>
-  
           {/* Nade Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredNades.map(nade => (
