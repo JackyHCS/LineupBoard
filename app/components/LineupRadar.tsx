@@ -50,7 +50,7 @@ export default function LineupRadar({ mapName, nadePositions = [] }: MapRadarPro
       <div className="flex flex-wrap gap-3 mb-4">
         <button 
            onClick={() => setFilterType('all')}
-           className={`px-4 py-2 rounded-lg text-sm font-medium transition ${filterType === 'all' 
+           className={`cursor-pointer px-4 py-2 rounded-lg text-sm font-medium transition ${filterType === 'all' 
             ? 'bg-blue-500 text-white' 
             : 'bg-[#1a2332] text-gray-300 hover:bg-[#243041] border border-gray-700'}`}
         >
@@ -58,7 +58,7 @@ export default function LineupRadar({ mapName, nadePositions = [] }: MapRadarPro
         </button>
         <button
           onClick={() => setFilterType('smoke')}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+          className={`cursor-pointer px-4 py-2 rounded-lg text-sm font-medium transition ${
             filterType === 'smoke' 
               ? 'bg-gray-500 text-white' 
               : 'bg-[#1a2332] text-gray-300 hover:bg-[#243041] border border-gray-700'
@@ -68,7 +68,7 @@ export default function LineupRadar({ mapName, nadePositions = [] }: MapRadarPro
         </button>
         <button
           onClick={() => setFilterType('molotov')}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+          className={`cursor-pointer px-4 py-2 rounded-lg text-sm font-medium transition ${
             filterType === 'molotov' 
               ? 'bg-orange-500 text-white' 
               : 'bg-[#1a2332] text-gray-300 hover:bg-[#243041] border border-gray-700'
@@ -78,7 +78,7 @@ export default function LineupRadar({ mapName, nadePositions = [] }: MapRadarPro
         </button>
         <button
           onClick={() => setFilterType('flashbang')}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+          className={`cursor-pointer px-4 py-2 rounded-lg text-sm font-medium transition ${
             filterType === 'flashbang' 
               ? 'bg-yellow-500 text-black' 
               : 'bg-[#1a2332] text-gray-300 hover:bg-[#243041] border border-gray-700'
@@ -88,7 +88,7 @@ export default function LineupRadar({ mapName, nadePositions = [] }: MapRadarPro
         </button>
         <button
           onClick={() => setFilterType('grenade')}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+          className={`cursor-pointer px-4 py-2 rounded-lg text-sm font-medium transition ${
             filterType === 'grenade' 
               ? 'bg-green-500 text-white' 
               : 'bg-[#1a2332] text-gray-300 hover:bg-[#243041] border border-gray-700'
@@ -99,9 +99,9 @@ export default function LineupRadar({ mapName, nadePositions = [] }: MapRadarPro
       </div>
 
       {/* Map Container */}
-      <div className="relative bg-[#1a2332] rounded-lg border border-gray-700 overflow-hidden">
-        <div className="relative w-full" style={{ paddingBottom: '100%' }}>
-          <img src={radarImage} alt={`${mapName} Radar`} className="absolute inset-0 w-full h-full object-contain"/>
+      <div className="relative bg-[#0f1419] rounded-lg border border-gray-700 overflow-hidden">
+        <div className="relative w-full" style={{ paddingBottom: '50%' }}>
+          <img src={radarImage} alt={`${mapName} Radar`} className="absolute inset-0 w-full h-full object-contain "/>
           
           {/* Nade Markers */}
           {filteredNades.map(nade => (
