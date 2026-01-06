@@ -1,6 +1,6 @@
 'use client';
 
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {nadeMapIcons} from '../constants/nadeMapIcons';
 import {NadePosition, NadeMarkerProps} from '../types/lineup';
 import {mapRadars} from '../constants/mapRadars';
@@ -28,12 +28,22 @@ const NadeMarker: React.FC<NadeMarkerProps> = ({ nade, onClick, isActive }) => {
 interface MapRadarProps {
   mapName: string;
   nadePositions?: NadePosition[];
+  selectedType?: string;
 }
 
-export default function LineupRadar({ mapName, nadePositions = [] }: MapRadarProps) {
+export default function LineupRadar({ mapName, nadePositions = [], selectedType = 'All Types' }: MapRadarProps) {
   const [selectedNade, setSelectedNade] = useState<NadePosition | null>(null);
   const [filterType, setFilterType] = useState<string>('all');
 
+  // Sync internal filter with parent's selected type
+  useEffect(() => {
+    if (selectedType === 'All Types') {
+      setFilterType('all');
+    } else {
+      setFilterType(selectedType.toLowerCase());
+    }
+  }, [selectedType]);
+  
   const radarImage = mapRadars[mapName];
   
   if (!radarImage) {

@@ -9,39 +9,47 @@ import {mapNadePositions} from '../data/nadePositions';
 
 export default function LineupSection() {
     const [searchQuery, setSearchQuery] = useState('');
+    
+    // General filter states
     const [selectedType, setSelectedType] = useState('All Types');
     const [selectedMap, setSelectedMap] = useState('All Maps');
     const [selectedSide, setSelectedSide] = useState('All Sides');
+    
+    // Map overview states
+    const [overviewType, setOverviewType] = useState('All Types');
+    const [overviewMap, setOverviewMap] = useState('All Maps');
   
     // Function to normalize map
     const normalizeMapName = (mapName: string): string => {
       return mapName.charAt(0) + mapName.slice(1).toLowerCase();
     };
 
-    // Filter nades based on selected filters
+    // Filter nades based on selected filters 
     const filteredNades = nades.filter(nade => {
       // Search filter
       const matchesSearch = searchQuery === '' || 
         nade.title.toLowerCase().includes(searchQuery.toLowerCase());
       
-      // Type filter
-      const matchesType = selectedType === 'All Types' || nade.type === selectedType;
+      // Type filter 
+      const effectiveType = overviewType !== 'All Types' ? overviewType : selectedType;
+      const matchesType = effectiveType === 'All Types' || nade.type === effectiveType;
 
       // Map filter 
-      const normalizedSelectedMap = selectedMap === 'All Maps' 
+      const effectiveMap = overviewMap !== 'All Maps' ? overviewMap : selectedMap;
+      const normalizedEffectiveMap = effectiveMap === 'All Maps' 
         ? 'All Maps' 
-        : normalizeMapName(selectedMap);
-      const matchesMap = normalizedSelectedMap === 'All Maps' || nade.map === normalizedSelectedMap;
+        : normalizeMapName(effectiveMap);
+      const matchesMap = normalizedEffectiveMap === 'All Maps' || nade.map === normalizedEffectiveMap;
       
-      // Side filter
+      // Side filter 
       const matchesSide = selectedSide === 'All Sides' || nade.side === selectedSide;
       
       return matchesSearch && matchesType && matchesMap && matchesSide;
     });
   
-    // Get nade positions for the selected map
-    const nadePositionsForMap = selectedMap !== 'All Maps' 
-      ? (mapNadePositions[selectedMap] || [])
+    // Nade positions 
+    const nadePositionsForMap = overviewMap !== 'All Maps' 
+      ? (mapNadePositions[overviewMap] || [])
       : [];
 
     return (
@@ -49,11 +57,11 @@ export default function LineupSection() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-6">
             <p className="text-gray-400">
-              Browse through our collection of utility lineups. Filter by map, type, and side.
+              Explore our utility lineups and narrow your search by map, type, and side—or use advanced map filters for more precision.
             </p>
           </div>
 
-          {/* Search and Filters */}
+          {/* Search and General Filters */}
           <div className="flex flex-col lg:flex-row gap-4 mb-8">
             <div className="flex-1 relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
@@ -65,11 +73,16 @@ export default function LineupSection() {
                 className="w-full bg-[#1a2332] border border-gray-700 rounded-lg pl-12 pr-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition"
               />
             </div>
-            {/* General Filter */}
             <select 
               value={selectedType}
-              onChange={(e) => setSelectedType(e.target.value)}
-              className="bg-[#1a2332] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 lg:min-w-[150px] cursopointerr-"
+              onChange={(e) => {
+                setSelectedType(e.target.value);
+                // Reset overview type when changing general type
+                if (e.target.value !== 'All Types') {
+                  setOverviewType('All Types');
+                }
+              }}
+              className="bg-[#1a2332] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 lg:min-w-[150px] cursor-pointer"
             >
               <option>All Types</option>
               <option>Smoke</option>
@@ -79,7 +92,13 @@ export default function LineupSection() {
             </select>
             <select 
               value={selectedMap}
-              onChange={(e) => setSelectedMap(e.target.value)}
+              onChange={(e) => {
+                setSelectedMap(e.target.value);
+                // Reset overview map when changing general map
+                if (e.target.value !== 'All Maps') {
+                  setOverviewMap('All Maps');
+                }
+              }}
               className="bg-[#1a2332] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 lg:min-w-[150px] cursor-pointer"
             >
               <option>All Maps</option>
@@ -96,17 +115,27 @@ export default function LineupSection() {
             </select>
           </div>
   
-          {/* Advanced map overview Filter Buttons */}
+          {/* Advanced Map Overview Filters */}
           <div className="mb-8">
-            {/* Nade Type Filters */}
+            <p className="mb-6 text-gray-400">
+              Map Overview Filters
+            </p>
+            {/* Nade Type Filters - For Overview and Grid */}
             <div className="flex flex-wrap gap-4 mb-4">
               {nadeTypes.map(({ name, icon: Icon }) => {
-                const typeName = name.charAt(0) + name.slice(1).toLowerCase(); // Convert SMOKE to Smoke
-                const isSelected = selectedType === typeName;
+                const typeName = name.charAt(0) + name.slice(1).toLowerCase(); 
+                const isSelected = overviewType === typeName;
                 return (
                   <button
                     key={name}
-                    onClick={() => setSelectedType(isSelected ? 'All Types' : typeName)}
+                    onClick={() => {
+                      const newType = isSelected ? 'All Types' : typeName;
+                      setOverviewType(newType);
+                      // Reset general type when using overview filter
+                      if (newType !== 'All Types') {
+                        setSelectedType('All Types');
+                      }
+                    }}
                     className={`cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition ${
                       isSelected
                         ? 'bg-blue-500 text-white border border-blue-500'
@@ -120,14 +149,21 @@ export default function LineupSection() {
               })}
             </div>
             
-            {/* Map Filters */}
+            {/* Map Filters - For Overview and Grid */}
             <div className="flex flex-wrap gap-4">
               {maps.map(map => (
                 <button 
                   key={map} 
-                  onClick={() => setSelectedMap(selectedMap === map ? 'All Maps' : map)}
+                  onClick={() => {
+                    const newMap = overviewMap === map ? 'All Maps' : map;
+                    setOverviewMap(newMap);
+                    // Reset general map when using overview filter
+                    if (newMap !== 'All Maps') {
+                      setSelectedMap('All Maps');
+                    }
+                  }}
                   className={`cursor-pointer px-5 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition ${
-                    selectedMap === map
+                    overviewMap === map
                       ? 'bg-blue-500 text-white'
                       : 'bg-[#1a2332] text-gray-300 border border-gray-700 hover:border-blue-500 hover:text-blue-400'
                   }`}
@@ -138,15 +174,20 @@ export default function LineupSection() {
             </div>
           </div>
   
-          {/* Map Radar*/}
-          {selectedMap !== 'All Maps' && (
-            <LineupRadar mapName={selectedMap} nadePositions={nadePositionsForMap}/>
+          {/* Map Radar */}
+          {overviewMap !== 'All Maps' && (
+            <LineupRadar 
+              mapName={overviewMap} 
+              nadePositions={nadePositionsForMap}
+              selectedType={overviewType}
+            />
           )}
   
           {/* Results Count */}
           <div className="text-lg font-bold text-gray-300 mb-6">
             {filteredNades.length} LINEUPS 
           </div>
+          
           {/* Nade Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredNades.map(nade => (
