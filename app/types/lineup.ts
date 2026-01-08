@@ -4,7 +4,7 @@ export interface Nade {
     map: string;
     type: string;
     side: string;
-    thumbnail: string;
+    videoUrl: string;
     difficulty: string;
   }
 
