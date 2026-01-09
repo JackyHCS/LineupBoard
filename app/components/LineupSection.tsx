@@ -18,6 +18,7 @@ export default function LineupSection() {
     // Map overview states
     const [overviewType, setOverviewType] = useState('All Types');
     const [overviewMap, setOverviewMap] = useState('All Maps');
+    const [selectedNadeTitle, setSelectedNadeTitle] = useState<string | null>(null);
   
     // Function to normalize map
     const normalizeMapName = (mapName: string): string => {
@@ -44,7 +45,11 @@ export default function LineupSection() {
       // Side filter 
       const matchesSide = selectedSide === 'All Sides' || nade.side === selectedSide;
       
-      return matchesSearch && matchesType && matchesMap && matchesSide;
+      // Selected nade title filter (from map icon click)
+      const matchesNadeTitle = selectedNadeTitle === null || 
+        nade.title.toLowerCase().includes(selectedNadeTitle.toLowerCase());
+      
+      return matchesSearch && matchesType && matchesMap && matchesSide && matchesNadeTitle;
     });
   
     // Nade positions 
@@ -135,6 +140,7 @@ export default function LineupSection() {
                       if (newType !== 'All Types') {
                         setSelectedType('All Types');
                       }
+                      setSelectedNadeTitle(null); // Reset selected nade title when type changes
                     }}
                     className={`cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition ${
                       isSelected
@@ -161,6 +167,7 @@ export default function LineupSection() {
                     if (newMap !== 'All Maps') {
                       setSelectedMap('All Maps');
                     }
+                    setSelectedNadeTitle(null); // Reset nade title when changed
                   }}
                   className={`cursor-pointer px-5 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition ${
                     overviewMap === map
@@ -180,6 +187,7 @@ export default function LineupSection() {
               mapName={overviewMap} 
               nadePositions={nadePositionsForMap}
               selectedType={overviewType}
+              onNadeSelect={setSelectedNadeTitle}
             />
           )}
   

@@ -1,27 +1,16 @@
-interface NadePosition {
-    id: number;
-    type: 'smoke' | 'molotov' | 'flashbang' | 'grenade';
-    x: number; // percent from left (0-100)
-    y: number; // percent from top (0-100)
-    title: string;
-    description: string;
-    difficulty: string;
-    side: string;
-    videoUrl: string;
-  }
-  
-  // Sample positions for now
+import { NadePosition } from '../types/lineup';
+
+// Sample positions for now
   export const miragePositions: NadePosition[] = [
     {
       id: 1,
       type: 'smoke',
       x: 35,
       y: 25,
-      title: 'A-Site Window Smoke',
+      title: 'Window Smoke',
       description: 'Jump throw from T Spawn',
       difficulty: 'Medium',
-      side: 'T-Side',
-      videoUrl: 'https://www.youtube.com/embed/YOUR_VIDEO_ID'
+      side: 'T-Side'
     },
     {
       id: 2,
@@ -31,8 +20,7 @@ interface NadePosition {
       title: 'CT Spawn Smoke',
       description: 'Stand throw from Mid',
       difficulty: 'Easy',
-      side: 'T-Side',
-      videoUrl: 'https://www.youtube.com/embed/YOUR_VIDEO_ID'
+      side: 'T-Side'
     },
   ];
   

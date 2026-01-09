@@ -29,11 +29,25 @@ interface MapRadarProps {
   mapName: string;
   nadePositions?: NadePosition[];
   selectedType?: string;
+  onNadeSelect?: (nadeTitle: string | null) => void;
 }
 
-export default function LineupRadar({ mapName, nadePositions = [], selectedType = 'All Types' }: MapRadarProps) {
+export default function LineupRadar({ mapName, nadePositions = [], selectedType = 'All Types', onNadeSelect }: MapRadarProps) {
   const [selectedNade, setSelectedNade] = useState<NadePosition | null>(null);
   const [filterType, setFilterType] = useState<string>('all');
+  
+  const handleNadeClick = (nade: NadePosition) => {
+    if (selectedNade?.id === nade.id) // IF selected nade is the same as the current, deselect
+    {
+      setSelectedNade(null);
+      onNadeSelect?.(null);
+    } 
+    else // Else, select nade
+    {
+      setSelectedNade(nade);
+      onNadeSelect?.(nade.title);
+    }
+  };
 
   // Sync internal filter with parent's selected type
   useEffect(() => {
@@ -115,7 +129,7 @@ export default function LineupRadar({ mapName, nadePositions = [], selectedType 
           
           {/* Nade Markers */}
           {filteredNades.map(nade => (
-            <NadeMarker key={nade.id} nade={nade} onClick={setSelectedNade} isActive={selectedNade?.id === nade.id}/>
+            <NadeMarker key={nade.id} nade={nade} onClick={handleNadeClick} isActive={selectedNade?.id === nade.id}/>
           ))}
         </div>
 
@@ -142,7 +156,6 @@ export default function LineupRadar({ mapName, nadePositions = [], selectedType 
           </div>
         </div>
       </div>
-
     </div>
   );
 }

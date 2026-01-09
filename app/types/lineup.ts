@@ -17,7 +17,6 @@ export interface NadePosition {
     description: string;
     difficulty: string;
     side: string;
-    videoUrl: string;
   }
   
   
