@@ -1,32 +1,33 @@
 import { Nade } from '../types/lineup';
 
 export const nades: Nade[] = [
+    // Mirage smokes
     {
         id: 1,
         title: 'A-Site Window Smoke from T Spawn',
         map: 'Mirage',
         type: 'Smoke',
         side: 'T-Side',
-        thumbnail: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=225&fit=crop',
+        videoUrl: 'https://www.youtube.com/embed/VidID', // sample format, replace with personal later
         difficulty: 'Medium'
     },
     {
         id: 2,
-        title: 'Jungle Smoke from T Apartments',
+        title: 'CT Spawn Smoke from T Spawn',
         map: 'Mirage',
         type: 'Smoke',
         side: 'T-Side',
-        thumbnail: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=225&fit=crop',
+        videoUrl: 'https://www.youtube.com/embed/VidID',
         difficulty: 'Medium'
     },
     {
         id: 3,
-        title: 'A-Site Window Smoke from T Spawn',
+        title: 'Window Smoke from Mid',
         map: 'Mirage',
         type: 'Smoke',
         side: 'T-Side',
-        thumbnail: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=225&fit=crop',
-        difficulty: 'Medium'
+        videoUrl: 'https://www.youtube.com/embed/VidID',
+        difficulty: 'Easy'
     }
 ]
 

@@ -4,6 +4,24 @@ export interface Nade {
     map: string;
     type: string;
     side: string;
-    thumbnail: string;
+    videoUrl: string;
     difficulty: string;
+  }
+
+export interface NadePosition {
+    id: number;
+    type: 'smoke' | 'molotov' | 'flashbang' | 'grenade';
+    x: number;
+    y: number;
+    title: string;
+    description: string;
+    difficulty: string;
+    side: string;
+  }
+  
+  
+export interface NadeMarkerProps {
+    nade: NadePosition;
+    onClick: (nade: NadePosition) => void;
+    isActive: boolean;
   }
