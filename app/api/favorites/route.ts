@@ -3,24 +3,19 @@ import { NextResponse } from 'next/server'
 
 // GET - Get all favorites for the current user
 export async function GET() {
-  const supabase = await createClient()
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) 
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
   const { data, error } = await supabase
     .from('favorites')
     .select('nade_id')
-    .eq('user_id', user.id)
+    .eq('user_id', user.id);
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
-  }
+  if (error) 
+    return NextResponse.json({ error: error.message }, { status: 500 });
 
   const favoriteIds = data?.map((fav) => fav.nade_id) || []
   return NextResponse.json({ favorites: favoriteIds })
@@ -28,15 +23,11 @@ export async function GET() {
 
 // POST - Add a favorite
 export async function POST(request: Request) {
-  const supabase = await createClient()
-  
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  if (!user) 
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { nade_id } = await request.json()
 
@@ -48,47 +39,40 @@ export async function POST(request: Request) {
     .from('favorites')
     .insert({ user_id: user.id, nade_id })
     .select()
-    .single()
+    .single();
 
   if (error) {
-    // If it's a duplicate, return success anyway
     if (error.code === '23505') {
       return NextResponse.json({ success: true, favorite: { nade_id } })
     }
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
-
   return NextResponse.json({ success: true, favorite: data })
 }
 
 // DELETE - Remove a favorite
 export async function DELETE(request: Request) {
-  const supabase = await createClient()
-  
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  if (!user) 
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const { searchParams } = new URL(request.url)
-  const nade_id = searchParams.get('nade_id')
+  const { searchParams } = new URL(request.url);
+  const nade_id = searchParams.get('nade_id');
 
   if (!nade_id) {
-    return NextResponse.json({ error: 'nade_id is required' }, { status: 400 })
+    return NextResponse.json({ error: 'nade_id is required' }, { status: 400 });
   }
 
   const { error } = await supabase
     .from('favorites')
     .delete()
     .eq('user_id', user.id)
-    .eq('nade_id', nade_id)
+    .eq('nade_id', nade_id);
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
-  }
+  if (error) 
+    return NextResponse.json({ error: error.message }, { status: 500 });
 
-  return NextResponse.json({ success: true })
+  return NextResponse.json({ success: true });
 }
