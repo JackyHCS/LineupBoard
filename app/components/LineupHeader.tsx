@@ -31,21 +31,23 @@ export default function LineupHeader() {
           <div className="flex items-center gap-3">
             {loading ? (
               <div className="w-8 h-8 border-2 border-gray-600 border-t-blue-500 rounded-full animate-spin" />
-            ) : user ? (
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 text-gray-300">
+            ) : user ? 
+            (
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 text-gray-300 bg-gray-800/50 px-3 py-1.5 rounded-lg">
                   <User className="w-4 h-4" />
                   <span className="text-sm">{user.user_metadata?.name || 'User'}</span>
                 </div>
                 <button
                   onClick={signOut}
-                  className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors text-sm font-medium"
+                  className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium"
                 >
                   <LogOut className="w-4 h-4" />
                   Sign Out
                 </button>
               </div>
-            ) : (
+            ) : 
+            (
               <div className="flex items-center gap-2">
                 <button
                   onClick={signInWithGoogle}
