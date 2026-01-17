@@ -40,7 +40,7 @@ export default function LineupHeader() {
                 </div>
                 <button
                   onClick={signOut}
-                  className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium"
+                  className="cursor-pointer flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium"
                 >
                   <LogOut className="w-4 h-4" />
                   Sign Out
