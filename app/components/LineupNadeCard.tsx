@@ -33,7 +33,6 @@ export default function LineupNadeCard({ nade }: LineupNadeCardProps) {
     e.stopPropagation();
 
     if (!user) {
-      // Could show a toast or redirect to login
       return;
     }
 
