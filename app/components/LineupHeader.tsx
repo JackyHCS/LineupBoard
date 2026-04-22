@@ -2,6 +2,7 @@
 
 import { useAuth } from '../contexts/AuthContext'
 import { LogIn, LogOut, User } from 'lucide-react'
+import Link from 'next/link'
 
 export default function LineupHeader() {
   const { user, loading, signInWithGoogle, signOut } = useAuth()
@@ -12,19 +13,22 @@ export default function LineupHeader() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <a href="/" className="flex items-center">
+            <Link href="/" className="flex items-center">
               <img src="/assets/logo-transparent.png" alt="LineupBoard Logo" className="h-20 w-auto" />
-            </a>
+            </Link>
           </div>
 
           {/* Navigation links */}
           <nav className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-8">
-            <a href="#lineups" className="text-gray-300 hover:text-white transition-colors font-medium uppercase tracking-wider text-sm">
+            <Link href="/#lineups" className="text-gray-300 hover:text-white transition-colors font-medium uppercase tracking-wider text-sm">
               Lineups
-            </a>
-            <a href="#board" className="text-gray-300 hover:text-white transition-colors font-medium uppercase tracking-wider text-sm">
+            </Link>
+            <Link href="/my-lineups" className="text-gray-300 hover:text-white transition-colors font-medium uppercase tracking-wider text-sm">
+              My Lineups
+            </Link>
+            <Link href="/#board" className="text-gray-300 hover:text-white transition-colors font-medium uppercase tracking-wider text-sm">
               Board(Coming Soon)
-            </a>
+            </Link>
           </nav>
 
           {/* Auth Section */}

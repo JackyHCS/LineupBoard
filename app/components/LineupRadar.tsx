@@ -1,6 +1,6 @@
 'use client';
 
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import {nadeMapIcons} from '../constants/nadeMapIcons';
 import {NadePosition, NadeMarkerProps} from '../types/lineup';
 import {mapRadars} from '../constants/mapRadars';
@@ -34,7 +34,7 @@ interface MapRadarProps {
 
 export default function LineupRadar({ mapName, nadePositions = [], selectedType = 'All Types', onNadeSelect }: MapRadarProps) {
   const [selectedNade, setSelectedNade] = useState<NadePosition | null>(null);
-  const [filterType, setFilterType] = useState<string>('all');
+  const [manualFilterType, setManualFilterType] = useState<string>('all');
   
   const handleNadeClick = (nade: NadePosition) => {
     if (selectedNade?.id === nade.id) // IF selected nade is the same as the current, deselect
@@ -49,14 +49,7 @@ export default function LineupRadar({ mapName, nadePositions = [], selectedType 
     }
   };
 
-  // Sync internal filter with parent's selected type
-  useEffect(() => {
-    if (selectedType === 'All Types') {
-      setFilterType('all');
-    } else {
-      setFilterType(selectedType.toLowerCase());
-    }
-  }, [selectedType]);
+  const activeFilterType = selectedType === 'All Types' ? manualFilterType : selectedType.toLowerCase();
   
   const radarImage = mapRadars[mapName];
   
@@ -64,26 +57,26 @@ export default function LineupRadar({ mapName, nadePositions = [], selectedType 
     return null;
   }
 
-  const filteredNades = filterType === 'all' 
+  const filteredNades = activeFilterType === 'all' 
     ? nadePositions 
-    : nadePositions.filter(nade => nade.type === filterType);
+    : nadePositions.filter(nade => nade.type === activeFilterType);
 
   return (
     <div className="mb-8">
       {/* Filter Buttons */}
       <div className="flex flex-wrap gap-3 mb-4">
         <button 
-           onClick={() => setFilterType('all')}
-           className={`cursor-pointer px-4 py-2 rounded-lg text-sm font-medium transition ${filterType === 'all' 
+            onClick={() => setManualFilterType('all')}
+            className={`cursor-pointer px-4 py-2 rounded-lg text-sm font-medium transition ${activeFilterType === 'all' 
             ? 'bg-blue-500 text-white' 
             : 'bg-[#1a2332] text-gray-300 hover:bg-[#243041] border border-gray-700'}`}
         >
           All ({nadePositions.length})
         </button>
         <button
-          onClick={() => setFilterType('smoke')}
+          onClick={() => setManualFilterType('smoke')}
           className={`cursor-pointer px-4 py-2 rounded-lg text-sm font-medium transition ${
-            filterType === 'smoke' 
+            activeFilterType === 'smoke' 
               ? 'bg-gray-500 text-white' 
               : 'bg-[#1a2332] text-gray-300 hover:bg-[#243041] border border-gray-700'
           }`}
@@ -91,9 +84,9 @@ export default function LineupRadar({ mapName, nadePositions = [], selectedType 
           Smokes ({nadePositions.filter(n => n.type === 'smoke').length})
         </button>
         <button
-          onClick={() => setFilterType('molotov')}
+          onClick={() => setManualFilterType('molotov')}
           className={`cursor-pointer px-4 py-2 rounded-lg text-sm font-medium transition ${
-            filterType === 'molotov' 
+            activeFilterType === 'molotov' 
               ? 'bg-orange-500 text-white' 
               : 'bg-[#1a2332] text-gray-300 hover:bg-[#243041] border border-gray-700'
           }`}
@@ -101,9 +94,9 @@ export default function LineupRadar({ mapName, nadePositions = [], selectedType 
           Molotovs ({nadePositions.filter(n => n.type === 'molotov').length})
         </button>
         <button
-          onClick={() => setFilterType('flashbang')}
+          onClick={() => setManualFilterType('flashbang')}
           className={`cursor-pointer px-4 py-2 rounded-lg text-sm font-medium transition ${
-            filterType === 'flashbang' 
+            activeFilterType === 'flashbang' 
               ? 'bg-yellow-500 text-black' 
               : 'bg-[#1a2332] text-gray-300 hover:bg-[#243041] border border-gray-700'
           }`}
@@ -111,9 +104,9 @@ export default function LineupRadar({ mapName, nadePositions = [], selectedType 
           Flashbangs ({nadePositions.filter(n => n.type === 'flashbang').length})
         </button>
         <button
-          onClick={() => setFilterType('grenade')}
+          onClick={() => setManualFilterType('grenade')}
           className={`cursor-pointer px-4 py-2 rounded-lg text-sm font-medium transition ${
-            filterType === 'grenade' 
+            activeFilterType === 'grenade' 
               ? 'bg-green-500 text-white' 
               : 'bg-[#1a2332] text-gray-300 hover:bg-[#243041] border border-gray-700'
           }`}

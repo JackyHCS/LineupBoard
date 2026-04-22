@@ -1,6 +1,16 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 
+interface UserLineupPayload {
+  title?: string;
+  map?: string;
+  type?: string;
+  side?: string;
+  video_url?: string;
+  difficulty?: string;
+  description?: string;
+}
+
 // GET - Get all lineups for the current user
 export async function GET() {
   const supabase = await createClient();
@@ -29,7 +39,7 @@ export async function POST(request: Request) {
   if (!user) 
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const body = await request.json()
+  const body: UserLineupPayload = await request.json()
   const { title, map, type, side, video_url, difficulty, description } = body;
 
   // Validation
